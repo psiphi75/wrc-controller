@@ -23,13 +23,24 @@
 
 'use strict';
 
-var stat = require('node-static');
+var nodeStatic = require('node-static');
 
 function WRCController(port, log) {
     port = port || 8888;
     log = log || console.log;
 
-    var fileServer = new stat.Server(__dirname + '/public');
+    //
+    // Enable Cross Origin Requests
+    //
+    var options = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        }
+    };
+
+    var fileServer = new nodeStatic.Server(__dirname + '/public', options);
 
     require('http').createServer(function (request, response) {
         request.addListener('end', function () {
@@ -47,6 +58,7 @@ function WRCController(port, log) {
 
     }).listen(port);
 
+    // TODO:  This prints out "Point your mobile phone to http://[IP THIS COMPUTER]:8888" - we should lookup the IP address, but there may be a few.
     console.log('Point your mobile phone to http://[IP THIS COMPUTER]:' + port);
 }
 
