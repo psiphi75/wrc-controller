@@ -12,6 +12,17 @@ body {
     z-index: 100;
     opacity: 0.6;
 }
+#ball p {
+    color: #f9f9f9;
+    font-size: smaller;
+    text-align: center;
+    line-height: 50px;
+}
+#slider p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
 #connection {
     text-align: center;
     display: inline-block;
@@ -112,12 +123,9 @@ body {
  */
 
 .slider.slider-horizontal {
-    width: 80%;
+    width: 90%;
+    margin-left: 5%;
 }
-
-/*.slider.slider-horizontal .slider-track {
-    margin-top: 60%;
-}*/
 
 
 @font-face {
