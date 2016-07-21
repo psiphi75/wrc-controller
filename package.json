@@ -1,0 +1,31 @@
+{
+  "name": "wrc-controller",
+  "description": "This allows you to remotely control a device using a mobile web browser using via web-remote-control proxy.",
+  "license": "APSL-2.0",
+  "version": "0.0.1",
+  "main": "runWebServer.js",
+  "author": {
+    "name": "Simon M. Werner",
+    "url": "https://github.com/psiphi75"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psiphi75/wrc-controller"
+  },
+  "bugs": {
+    "url": "https://github.com/psiphi75/wrc-controller/issues"
+  },
+  "scripts": {
+    "test": "echo 'No tests'",
+    "prepublish": "npm install web-remote-control && cp node_modules/web-remote-control/www/web-remote-control.js public/lib"
+  },
+  "keywords": [
+    "remote",
+    "control",
+    "web"
+  ],
+  "dependencies": {
+     "web-remote-control": "^1.8.0",
+     "node-static": "^0.7.7"
+  }
+}
