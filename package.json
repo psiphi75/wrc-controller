@@ -2,7 +2,7 @@
   "name": "wrc-controller",
   "description": "This allows you to remotely control a device using a mobile web browser using via web-remote-control proxy.",
   "license": "APSL-2.0",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "author": {
     "name": "Simon M. Werner",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "echo 'No tests'",
-    "prepublish": "npm install web-remote-control && cp node_modules/web-remote-control/www/web-remote-control.js public/lib"
+    "postinstall": "cp node_modules/web-remote-control/www/web-remote-control.js public/lib"
   },
   "keywords": [
     "remote",

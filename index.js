@@ -29,7 +29,7 @@ function WRCController(port, log) {
     port = port || 8888;
     log = log || console.log;
 
-    var fileServer = new stat.Server('./public');
+    var fileServer = new stat.Server(__dirname + '/public');
 
     require('http').createServer(function (request, response) {
         request.addListener('end', function () {
