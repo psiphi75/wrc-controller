@@ -46,67 +46,22 @@
 
         <!-- 2nd Row -->
         <div class="row row-height-large toy-stat">
-            <div id="accel" class="col-xs-4">
+            <div id="servos" class="col-xs-4">
                 <div class="card card-block">
-                    <h6 class="card-title">Accelerometer</h6>
+                    <h6 class="card-title">Servos</h6>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            x:
+                            sail:
                             <span class="label label-default label-pill pull-xs-right">-</span>
                         </li>
                         <li class="list-group-item">
-                            y:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            z:
+                            rudder:
                             <span class="label label-default label-pill pull-xs-right">-</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div id="gyro" class="col-xs-4">
-                <div class="card card-block">
-                    <h6 class="card-title">Gyroscope</h6>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            x:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            y:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            z:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="compassRaw" class="col-xs-4">
-                <div class="card card-block">
-                    <h6 class="card-title">Compass</h6>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            x:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            y:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            z:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <!-- GPS and log box -->
-        <div class="row row-height-medium toy-stat">
             <div id="gps" class="col-xs-4">
                 <div class="card card-block">
                     <h6 class="card-title">GPS</h6>
@@ -117,6 +72,46 @@
                         </li>
                         <li class="list-group-item">
                             long:
+                            <span class="label label-default label-pill pull-xs-right">-</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="apparentWind" class="col-xs-4">
+                <div class="card card-block">
+                    <h6 class="card-title">App. Wind</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            speed:
+                            <span class="label label-default label-pill pull-xs-right">-</span>
+                        </li>
+                        <li class="list-group-item">
+                            heading:
+                            <span class="label label-default label-pill pull-xs-right">-</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- GPS and log box -->
+        <div class="row row-height-medium toy-stat">
+            <div id="attitude" class="col-xs-4">
+                <div class="card card-block">
+                    <h6 class="card-title">Attitude</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            heading:
+                            <span class="label label-default label-pill pull-xs-right">-</span>
+                        </li>
+                        <li class="list-group-item">
+                            roll:
+                            <span class="label label-default label-pill pull-xs-right">-</span>
+                        </li>
+                        <li class="list-group-item">
+                            pitch:
                             <span class="label label-default label-pill pull-xs-right">-</span>
                         </li>
                     </ul>

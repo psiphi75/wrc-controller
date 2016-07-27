@@ -32,10 +32,7 @@ body {
 
 .list-group-item {
     padding: .175rem 0.25rem;
-}
-.label-pill {
-    border-radius: 0.6rem;
-    width: 50px;
+    font-size: 0.8em;
 }
 #gps .label-pill {
     width: 60px;
@@ -43,10 +40,22 @@ body {
 }
 
 .label {
-    padding: .5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+}
+
+.label-pill {
+    border-radius: 0.6rem;
+    width: 40px;
 }
 .card-title {
     text-align: center;
+}
+.card-title {
+    margin-bottom: .5rem;
 }
 .card-block {
     padding: 5px;
@@ -94,7 +103,7 @@ body {
     height: 50vh;
 }
 .row-height-large {
-    height: 19vh;
+    height: 10vh;
 }
 .row-height-medium {
     height: 14vh;

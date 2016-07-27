@@ -94,13 +94,14 @@ function startController(channel) {
                 }
 
                 if (typeof status === 'object' && typeof status.boat === 'object') {
-                    displaySensorStatus(status.boat, 'gyro');
-                    displaySensorStatus(status.boat, 'compassRaw');
-                    displaySensorStatus(status.boat, 'accel');
+                    displaySensorStatus(status.boat, 'attitude');
+                    displaySensorStatus(status.boat, 'servos');
                     displaySensorStatus(status.boat, 'gps');
-                    if (status.environment && status.environment.wind && status.environment.wind.heading) {
-                        logReplaceMessage('Compass (heading, speed): ', status.environment.wind.heading.toFixed(0) + ', ' + status.environment.wind.speed.toFixed(2));
-                    }
+                    displaySensorStatus(status.boat, 'apparentWind');
+
+                    // if (status.environment && status.environment.wind && status.environment.wind.heading) {
+                    //     logReplaceMessage('Compass (heading, speed): ', status.environment.wind.heading.toFixed(0) + ', ' + status.environment.wind.speed.toFixed(2));
+                    // }
                 }
                 logReplaceMessage('Toy: Time diff (ms): ', (lastUpdateTime - lastTime));
                 lastTime = lastUpdateTime;
@@ -453,8 +454,9 @@ function displaySensorStatus(status, type) {
     }
 
     var subEls = el.find('li');
-    Object.keys(status[type]).forEach(function(key) {
-        findAndUpdateLabel(status[type][key], key);
+    Object.keys(status[type]).forEach(function(dimension) {
+        var value = status[type][dimension];
+        findAndUpdateLabel(value, dimension);
     });
 
     // Make element clickable
@@ -473,6 +475,7 @@ function displaySensorStatus(status, type) {
     }
 
     function findAndUpdateLabel(value, dim) {
+        value = round(value, dim);
         for (var i = 0; i < subEls.length; i += 1) {
             var elementStr = subEls[i].innerText.trim();
             if (elementStr.indexOf(dim) === 0) {
@@ -480,7 +483,24 @@ function displaySensorStatus(status, type) {
                 return;
             }
         }
+    }
 
+    function round(value, dim) {
+        const ROUNDS = {
+            'heading': 1,
+            'pitch': 1,
+            'roll': 1,
+            'lat': 6,
+            'long': 6,
+            'sail': 2,
+            'rudder': 2,
+            'speed': 2
+        };
+        var dp = ROUNDS[dim];
+        if (dp === undefined) {
+            return value;
+        }
+        return value.toFixed(dp);
     }
 }
 
