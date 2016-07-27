@@ -54,7 +54,7 @@ function Axis(method) {  // eslint-disable-line no-unused-vars
         min: -1,
         cntr: 0,
         max: 1,
-        scale: 1,
+        scale: 2,
 
         /**
          * Has the value changed since the last time we called 'getValue'
