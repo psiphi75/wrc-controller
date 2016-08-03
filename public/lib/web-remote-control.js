@@ -3362,7 +3362,7 @@ Device.prototype.register = function () {
 
     this.clearRegisterTimeout();
 
-    this.send('register', {
+    this._send('register', {
         deviceType: this.deviceType,
         channel: this.channel
     });
@@ -3400,7 +3400,7 @@ Device.prototype.ping = function(callback) {
     this.pingManager.add(this.mySeqNum, callback);
 
     var timeStr = (new Date().getTime()).toString();
-    this.send('ping', timeStr);
+    this._send('ping', timeStr);
 
 };
 
@@ -3412,7 +3412,19 @@ Device.prototype.ping = function(callback) {
  * @param  {string} data The data, it must be a string.
  */
 Device.prototype.status = function (msgString) {
-    this.send('status', msgString);
+    this._send('status', msgString);
+};
+
+
+/**
+ * Send a status to the remote proxy that is sticky - which gets forwarded to the
+ * receiver(s).  A sticky status will be held on the proxy on the given channel until
+ * the next message comes through.
+ * @param  {string} type The sticky type we are sending.
+ * @param  {string} data The data, it must be a string.
+ */
+Device.prototype.stickyStatus = function (msgString) {
+    this._send('status', msgString, {sticky: true});
 };
 
 
@@ -3428,7 +3440,24 @@ Device.prototype.command = function (msgString) {
         throw new Error('Only controllers can send commands.');
     }
 
-    this.send('command', msgString);
+    this._send('command', msgString);
+};
+
+/**
+ * Send a command to the remote proxy that is sticky - which gets forwarded to the
+ * receiver(s).  A sticky command will be held on the proxy on the given channel until
+ * the next message comes through.
+ * @param  {string} type The command type we are sending.
+ * @param  {string} data The data, it must be a string.
+ * @param  {object} options Additional options - read the code.
+ */
+Device.prototype.stickyCommand = function (msgString) {
+
+    if (this.deviceType !== 'controller') {
+        throw new Error('Only controllers can send commands.');
+    }
+
+    this._send('command', msgString, {sticky: true});
 };
 
 
@@ -3437,10 +3466,10 @@ Device.prototype.command = function (msgString) {
  * @param  {string} type The message type we are sending.
  * @param  {string} data The data, it must be a string.
  */
-Device.prototype.send = function(type, data) {
+Device.prototype._send = function(type, data, options) {
 
     if (!this.uid && type !== 'register') {
-        this.log('Device.send(): Not yet registered.');
+        this.log('Device._send(): Not yet registered.');
         return;
     }
 
@@ -3451,8 +3480,12 @@ Device.prototype.send = function(type, data) {
         data: data
     };
 
+    if ((type === 'status' || type === 'command') && options && options.sticky === true) {
+        msgObj.sticky = true;
+    }
+
     // Send the message to the proxy.  Use the IP have we have determined it.
-    this.connection.send(msgObj);
+    this.connection._send(msgObj);
     this.mySeqNum += 1;
 };
 
@@ -3675,14 +3708,14 @@ function handleMessage(message) {
  * @param  {string} address The remote address.
  * @param  {number} remote The remote port.
  */
-WebClientConnection.prototype.send = function(msgObj) {
+WebClientConnection.prototype._send = function(msgObj) {
 
     var sendBuffer = messageHandler.packOutgoingMessage(msgObj);
 
     try {
         this.socket.emit('event', sendBuffer);
     } catch (ex) {
-        console.error('WebClientConnection.send(): ', ex);
+        console.error('WebClientConnection._send(): ', ex);
     }
 
 };
@@ -3753,9 +3786,10 @@ exports.parseIncomingMessage = function(message, enable_compression) {
         case 'register':
             requiresList = ['type', 'seq', 'data'];
             break;
-        case 'ping':
+
         case 'status':
         case 'command':
+        case 'ping':
         case 'error':
             requiresList = ['type', 'seq', 'data', 'uid'];
             break;
@@ -3764,15 +3798,11 @@ exports.parseIncomingMessage = function(message, enable_compression) {
     }
 
     /* Check the properties are all valid */
-    var count = 0;
-    for (var key in msgObj) {
-        if (msgObj.hasOwnProperty(key) && requiresList.indexOf(key) >= 0) {
-            count += 1;
+    requiresList.forEach(function(req) {
+        if (!msgObj.hasOwnProperty(req)) {
+            throw new Error('The message that arrived is not valid, it does not contain a property: ' + req);
         }
-    }
-    if (count !== requiresList.length) {
-        throw new Error('The message that arrived is not valid, it has too many or two few properties: ' + msgObj.toString());
-    }
+    });
 
     return msgObj;
 };
@@ -3792,6 +3822,10 @@ exports.packOutgoingMessage = function(msgObj, enable_compression) {
     if (msgObj.hasOwnProperty('uid')) {
         cleanMsgObj.uid = msgObj.uid;
     }
+    if (msgObj.hasOwnProperty('sticky') && msgObj.sticky === true) {
+        cleanMsgObj.sticky = true;
+    }
+
     return compress(cleanMsgObj, enable_compression);
 
 };
