@@ -61,6 +61,13 @@ function startController(channel) {
         });
     };
 
+    controller.setControllerMode = function controllerSendNote(controllerMode) {
+        controller.command({
+            action: 'mode',
+            mode: controllerMode
+        });
+    };
+
     var lastUpdateTime = 0;
     var lastTime = new Date().getTime();
     controller.connection.socket.on('connect', function() {
@@ -98,10 +105,6 @@ function startController(channel) {
                     displaySensorStatus(status.boat, 'servos');
                     displaySensorStatus(status.boat, 'gps');
                     displaySensorStatus(status.boat, 'apparentWind');
-
-                    // if (status.environment && status.environment.wind && status.environment.wind.heading) {
-                    //     logReplaceMessage('Compass (heading, speed): ', status.environment.wind.heading.toFixed(0) + ', ' + status.environment.wind.speed.toFixed(2));
-                    // }
                 }
                 logReplaceMessage('Toy: Time diff (ms): ', (lastUpdateTime - lastTime));
                 lastTime = lastUpdateTime;
@@ -469,7 +472,7 @@ function displaySensorStatus(status, type) {
                 win.focus();
             } else {
                 //Broswer has blocked it
-                alert('Please allow popups for this site');
+                alert('Allow popups for this site to switch to fullscreen mode');  // eslint-disable-line no-alert
             }
         });
     }
@@ -590,6 +593,17 @@ function init() { // eslint-disable-line no-unused-vars
 
     // Channel change button.
     $('#btn-change-channel').on('click', setChannelFromTextBox);
+
+    $('#toggle-robot').change(function() {
+        var mode = $(this).prop('checked');
+        if (mode === true) {
+            controller.setControllerMode('robotic');
+        } else if (mode === false) {
+            controller.setControllerMode('manual');
+        } else {
+            logError('Invalid controller mode: ', mode);
+        }
+    });
 
     // Set up the note text boxes
     Notes('note-1');

@@ -38,7 +38,13 @@ body {
     width: 60px;
     margin-right: -8px;
 }
-
+.alert {
+    padding-top: 7px;
+    padding-bottom: 1px;
+    border: 0;
+    border-radius: .25rem;
+    margin: 0;
+}
 .label {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -63,10 +69,7 @@ body {
     margin-bottom: 2px;
 }
 .row {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-right: 0;
-    margin-left: 0;
+    margin: 0;
 }
 .toy-stat .col-xs-6,
 .toy-stat .col-xs-4,
@@ -108,8 +111,10 @@ body {
 .row-height-medium {
     height: 14vh;
 }
-.row-height-small {
-    height: 8vh;
+.col-xs-6, .col-xs-12 {
+     min-height: 0;
+     padding-right: 0;
+     padding-left: 0;
 }
 
 /*
