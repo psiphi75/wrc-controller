@@ -3562,10 +3562,12 @@ function PingManager(settings) {
 PingManager.prototype.add = function(pingId, callback) {
 
     if (typeof pingId !== 'number') {
-        this.log.error('PingManager.add(): pingId must be a number.');
+        this.log('PingManager.add(): pingId must be a number.');
+        return;
     }
     if (this.pingList[pingId]) {
-        this.log.error('PingManager.add(): pingId has already been supplied.');
+        this.log('PingManager.add(): pingId has already been supplied.');
+        return;
     }
 
     // Create the ping, and make it self destruct.
@@ -3591,7 +3593,8 @@ PingManager.prototype.add = function(pingId, callback) {
 PingManager.prototype.handleIncomingPing = function(pingId, time) {
     var ping = this.pingList[pingId];
     if (!ping) {
-        this.log.error('PingManager.respond(): pingId not found.');
+        this.log('PingManager.respond(): pingId not found.');
+        return;
     }
 
     clearTimeout(ping.timeoutHandle);
@@ -3603,7 +3606,7 @@ PingManager.prototype.handleIncomingPing = function(pingId, time) {
     try {
         delete this.pingList[pingId];
     } catch (ex) {
-        this.log.error('Did not expect this.');
+        this.log('Did not expect this.');
     }
 
 };

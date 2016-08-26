@@ -106,10 +106,10 @@ body {
     height: 50vh;
 }
 .row-height-large {
-    height: 10vh;
+    height: 16vh;
 }
 .row-height-medium {
-    height: 14vh;
+    height: 13vh;
 }
 .col-xs-6, .col-xs-12 {
      min-height: 0;

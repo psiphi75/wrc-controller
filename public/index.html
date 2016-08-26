@@ -45,7 +45,7 @@
         </div>
 
         <!-- 2nd Row -->
-        <div class="row row-height-large toy-stat">
+        <div class="row row-height-medium toy-stat">
             <div id="servos" class="col-xs-4">
                 <div class="card card-block">
                     <h6 class="card-title">Servos</h6>
@@ -97,7 +97,7 @@
         </div>
 
         <!-- GPS and log box -->
-        <div class="row row-height-medium toy-stat">
+        <div class="row row-height-large toy-stat">
             <div id="attitude" class="col-xs-4">
                 <div class="card card-block">
                     <h6 class="card-title">Attitude</h6>
@@ -130,11 +130,18 @@
         </div>
 
 
-        <!-- Manual / Auto override -->
-        <div class="row">
-            <div class="col-xs-12" style="margin-bottom: 5px;">
+        <div class="row row-height-small">
+
+            <!-- Manual / Auto override -->
+            <div class="col-xs-3" style="margin-bottom: 5px;">
                 <input id="toggle-robot" data-toggle="toggle" data-on="Robotic" data-off="Manual" data-onstyle="success" data-offstyle="warning" type="checkbox">
             </div>
+
+            <!-- Actual rudder and sail / Based on TW Angle -->
+            <!-- <div class="col-xs-3" style="margin-bottom: 5px;">
+                <input id="toggle-control-method" data-toggle="toggle" data-on="Actual" data-off="TW Angle" data-onstyle="success" data-offstyle="warning" type="checkbox">
+            </div> -->
+
         </div>
 
 
@@ -181,7 +188,7 @@
         </div>
 
         <!-- The RC frame -->
-        <div class="row row-height-medium">
+        <div class="row row-height-large">
             <div id="controller" class="col-xs-1"></div>
             <div id="ball">
                 <p>rudder</p>

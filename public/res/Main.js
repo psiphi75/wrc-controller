@@ -68,6 +68,12 @@ function startController(channel) {
         });
     };
 
+    // var controlMethod = 'actual';
+    // controller.setControllerMethod = function controllerSendNote(_controlMethod) {
+    //     controlMethod = _controlMethod;
+    // };
+
+
     var lastUpdateTime = 0;
     var lastTime = new Date().getTime();
     controller.connection.socket.on('connect', function() {
@@ -126,6 +132,26 @@ function startController(channel) {
                     servoSail: x.getValue(),
                     servoRudder: y.getValue()
                 });
+
+                // if (controlMethod === 'actual') {
+                //     // Don't bother updating if values have not changed.
+                //     if (x.hasNotChanged() && y.hasNotChanged()) {
+                //         return;
+                //     }
+                //
+                //     controller.command({
+                //         action: 'move',
+                //         servoSail: x.getValue(),
+                //         servoRudder: y.getValue()
+                //     });
+                // } else {
+                // controller.command({
+                //     action: 'move',
+                //     servoSail: x.getValue(),
+                //     servoRudder: y.getValue()
+                // });
+                // }
+
             }
 
             setInterval(sendCommand, 1000 / NETWORK_UPDATE_FREQ);
@@ -604,6 +630,17 @@ function init() { // eslint-disable-line no-unused-vars
             logError('Invalid controller mode: ', mode);
         }
     });
+
+    // $('#toggle-robot').change(function() {
+    //     var method = $(this).prop('checked');
+    //     if (method === true) {
+    //         controller.setControllerMethod('actual');
+    //     } else if (method === false) {
+    //         controller.setControllerMethod('tw-angle');
+    //     } else {
+    //         logError('Invalid controller method: ', method);
+    //     }
+    // });
 
     // Set up the note text boxes
     Notes('note-1');
