@@ -55,10 +55,22 @@ function startController(channel) {
     });
 
     controller.sendNote = function controllerSendNote(note) {
-        controller.command({
-            action: 'note',
-            note: note
-        });
+
+        switch (note.toLowerCase()) {
+            case 'shutdown':
+            case 'reboot':
+            case 'restartprocess':
+            case 'resetcourse':
+            var result = prompt('Are you sure you want to ' + note + '?\nType "Y" to continue', 'N'); // eslint-disable-line no-alert
+                if (result.toLowerCase() !== 'y') {
+                    return;
+                }
+            default:            // eslint-disable-line no-fallthrough
+                controller.command({
+                    action: 'note',
+                    note: note
+                });
+        }            
     };
 
     controller.setControllerMode = function controllerSendNote(controllerMode) {
