@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   height="900"
+   width="900"
+   viewBox="0 0 900 900"
+   id="boat-svg"
+   version="1.1">
+  <path
+     style="fill:#ccc;stroke:#ccc;stroke-width:1;"
+     d="M 527.96886,885 C 557.79198,795.19838 579.4946,442.05084 579.99875,265.77973 548.20835,85.125276 449.99999,7.899105 449.99999,7.899105 c 0,0 -98.20834,77.226158 -129.99874,257.880625 C 320.5054,442.05084 342.20802,795.19838 372.03114,885 l 77.96885,7.60095 z"
+     id="boatShape" />
+</svg>

@@ -622,7 +622,7 @@ var ball;
 
 // This a workaround for an old Firefox bug.  See:
 // https://bugzilla.mozilla.org/show_bug.cgi?id=771575
-function init() { // eslint-disable-line no-unused-vars
+$(document).ready(function () { // eslint-disable-line no-unused-vars
     setTimeout(delayedInit, 20);
 
     // Restore configuration settings
@@ -679,6 +679,72 @@ function init() { // eslint-disable-line no-unused-vars
     });
 
 
+    // function delayedInit2() {
+
+        //
+        // Boat Heading
+        //
+console.log(document.getElementById('boat-heading').clientWidth)
+    console.log($('#boat-heading').width())
+        const width = document.getElementById('boat-heading').clientWidth;
+        const boatHeading = new BoatHeading('#boat-heading', width);
+        const t0 = new Date().getTime();
+        setInterval(function () {
+            const t = new Date().getTime();
+            boatHeading.setHeadings({
+                boat: ((t - t0) / 300),
+                nextWaypoint: (-(t - t0) / 200),
+                apparentWind: (-(t - t0) / 100)
+            });
+        }, 20);
+
+        //
+        // Speed GraphTime
+        //
+
+
+        let options = {
+            id: 'speed',
+            label: 'Speed',
+            unit: 'km / h',
+            width: 400,
+            height: 100,
+            range: {
+                min: 0,
+                max: 6,
+                step: 2
+            },
+            margin: {
+                top: 8,
+                right: 8,
+                bottom: 8,
+                left: 16
+            }
+        };
+
+        const speedGraph = new GraphTime('#graph-speed', options);
+        setInterval(function() {
+            speedGraph.addPoint(random());
+        }, 100);
+
+        options.id = 'roll';
+        options.label = 'Roll';
+        options.unit = '°';
+        const rollGraph = new GraphTime('#graph-roll', options);
+        setInterval(function() {
+            rollGraph.addPoint(random());
+        }, 100);
+
+        options.id = 'pitch';
+        options.label = 'Pitch';
+        options.unit = '°';
+        const pitchGraph = new GraphTime('#graph-pitch', options);
+        setInterval(function() {
+            pitchGraph.addPoint(random());
+        }, 100);
+    // }
+
+
     function delayedInit() {
 
         ball = document.getElementById('ball');
@@ -708,4 +774,4 @@ function init() { // eslint-disable-line no-unused-vars
 
     }
 
-}
+});

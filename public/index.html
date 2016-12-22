@@ -12,13 +12,38 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="lib/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link rel="stylesheet" href="lib/bootstrap-slider.min.css" crossorigin="anonymous">
+    <link href="lib/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!-- Our CSS -->
     <link rel="stylesheet" href="res/style.css">
 
+    <style>
+        @font-face {
+            font-family: 'Audimat Mono Bold';
+            src: url('res/font/AudimatMonoBold.ttf') format('ttf'),
+                 url('res/font/AudimatMonoBold.woff2') format('woff2');
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        body {
+            background: #111;
+            overflow:hidden;
+        }
+
+        .svg-container {
+            font-family: 'Audimat Mono Bold', monospace;
+        }
+    </style>
+
+
 </head>
 
-<body onload="init()">
+<body>
 
     <div class="container">
 
@@ -46,20 +71,13 @@
 
         <!-- 2nd Row -->
         <div class="row row-height-medium toy-stat">
-            <div id="servos" class="col-xs-4">
-                <div class="card card-block">
-                    <h6 class="card-title">Servos</h6>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            sail:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                        <li class="list-group-item">
-                            rudder:
-                            <span class="label label-default label-pill pull-xs-right">-</span>
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-xs-6">
+                <div id="boat-heading"></div>
+            </div>
+            <div>
+                <div id="graph-speed"></div>
+                <div id="graph-roll"></div>
+                <div id="graph-pitch"></div>
             </div>
 
             <div id="gps" class="col-xs-4">
@@ -324,17 +342,23 @@
 
     </div>
 
+
     <!-- jQuery first, then Bootstrap JS. -->
     <script src="lib/jquery.min.js"></script>
     <script src="lib/bootstrap-slider.min.js"></script>
     <script src="lib/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script src="lib/d3.v4.min.js"></script>
 
     <!-- Bootstrap Toggle Button -->
-    <link href="lib/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="lib/bootstrap-toggle.min.js"></script>
 
     <script src="lib/socket.io-1.4.4.js"></script>
     <script src="lib/web-remote-control.js"></script>
+
+    <script src="res/GraphTime.js"></script>
+    <script src="res/BoatHeading.js"></script>
+    <script src="res/SVGContainer.js"></script>
+
     <script src="res/Axis.js"></script>
     <script src="res/Note.js"></script>
     <script src="res/Main.js"></script>
